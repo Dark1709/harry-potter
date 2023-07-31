@@ -1,7 +1,17 @@
-from django.urls import path
+from django.urls import path, include
+
+from rest_framework.routers import DefaultRouter
+
 from . import views
 
+router = DefaultRouter()
+
+router.register(
+    'house', 
+    views.HouseModelViewSet, 
+    basename='house'
+)
+
 urlpatterns = [
-    path('Houses', views.HouseAPIView.as_view(), name='house-list'),
-    path('Houses/<int:pk>', views.HouseAPIView.as_view(), name='house-detail'),
+    path('', include(router.urls)),
 ]

@@ -1,5 +1,4 @@
-""" from rest_framework import serializers
-from apps.authentication.models import Authentication
+from rest_framework import serializers
 
 class UserSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=100)
@@ -21,4 +20,4 @@ class UserSerializer(serializers.Serializer):
         return representation
     
     
-     """
+    

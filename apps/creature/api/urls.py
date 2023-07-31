@@ -1,7 +1,17 @@
-from django.urls import path
+from django.urls import path, include
+
+from rest_framework.routers import DefaultRouter
+
 from . import views
 
+router = DefaultRouter()
+
+router.register(
+    'creature', 
+    views.CreatureModelViewSet, 
+    basename='creature'
+)
+
 urlpatterns = [
-    path('Creature', views.CreatureAPIView.as_view(), name='creature-list'),
-    path('Creature/<int:pk>', views.CreatureAPIView.as_view(), name='creature-detail'),
+    path('', include(router.urls)),
 ]

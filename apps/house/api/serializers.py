@@ -6,4 +6,7 @@ class HouseSerializer(serializers.ModelSerializer):
         model = House
         fields = ['pk','name', 'color', 'animal', 'founder']
     
-    
+class HouseSerializer2(serializers.ModelSerializer):
+    class Meta:
+        model = House
+        fields = ['pk']   

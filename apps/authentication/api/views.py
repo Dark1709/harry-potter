@@ -1,10 +1,9 @@
-""" from rest_framework.views import APIView
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.mixins import RetrieveModelMixin
 
 from .serializers import UserSerializer
-from  apps.authentication.models import Authentication
 
 class UserList(APIView):
     def get(self, request, *args, **kwargs):
@@ -18,5 +17,4 @@ class UserList(APIView):
         else:
             print("No es valido".serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
- """
+  

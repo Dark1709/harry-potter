@@ -1,7 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.mixins import RetrieveModelMixin
 
 from .serializers import SpellSerializer
 from  apps.spell.models import Spell

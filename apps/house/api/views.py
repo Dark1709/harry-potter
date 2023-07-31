@@ -1,36 +1,30 @@
 from rest_framework.views import APIView
+from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.mixins import RetrieveModelMixin
 
-from .serializers import  HouseSerializer
+from .serializers import (
+    HouseSerializer,
+    HouseSerializer2
+)
 from  apps.house.models import House
 
-class HouseAPIView(APIView):
-    def get(self, request, *args, **kwargs):
-        houses = House.objects.all()
-        serializer = HouseSerializer(instance=houses, many=True)
-        return Response(serializer.data)
+class HouseModelViewSet(viewsets.GenericViewSet):  
+    def get_queryset(self):
+        queryset = House.objects.all()
+        return queryset
     
-    def post(self, request, *args, **kwargs):
-        serializer = HouseSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        else:
-            return Response(serializer.errors)
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return HouseSerializer2
+        elif self.action in ['create', 'update']:
+            return HouseSerializer
     
-    def put(self, request, pk, *args, **kwarg):
-        model = House.objects.get(pk=pk)
-        serializer = HouseSerializer(model, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        else:
-            return Response(serializer.errors)
-        
-    def delete(self, request, pk, *args, **kwarg):
-        house = House.objects.get(pk=pk)
-        house.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    def list(self, request, *args, **kwargs):
+        houses = self.get_queryset()
+        serializer = self.get_serializer_class()
+        data = serializer(houses, many=True)
+        return Response(data.data)
+    
+    
         

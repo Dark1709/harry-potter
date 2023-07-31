@@ -5,7 +5,6 @@ from rest_framework import status
 from .serializers import AnimalSerializer, AnimalSerializer2
 from  apps.animal.models import Animal
 
-
 class AnimalAPIView(APIView):
     def get(self, request, *args, **kwargs):
         animals = Animal.objects.all()
